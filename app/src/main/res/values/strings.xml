@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Zircon</string>
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">aw789vKFNN5AuvOHgy7AmOSJOB3Xhp0Z9hyTrbXf</string>
+    <string name="back4app_client_key">eCqMaBDNbqHs220O8qlXrxmauA9fL7Cl42gdanra</string>
+</resources>

@@ -7,6 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 
 /**
@@ -20,6 +28,8 @@ public class profileFrag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private EditText name , bio , hobbies, profession;
+    private Button update;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -52,6 +62,10 @@ public class profileFrag extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
+
+
         }
     }
 
@@ -59,6 +73,59 @@ public class profileFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        name = view.findViewById(R.id.name);
+        bio= view.findViewById(R.id.bio);
+        hobbies = view.findViewById(R.id.hobbies);
+        profession = view.findViewById(R.id.profession);
+        update = view.findViewById(R.id.updateinfo);
+        final ParseUser parseUser = ParseUser.getCurrentUser();
+
+        if (parseUser.get("profilename") != null) {
+            name.setText(parseUser.get("profilename").toString());
+        } else {
+            name.setText("");
+        }
+        if (parseUser.get("Hobbies") != null) {
+            hobbies.setText(parseUser.get("hobbies").toString());
+        } else {
+            hobbies.setText("");
+        }
+        if (parseUser.get("bio") != null) {
+            bio.setText(parseUser.get("bio").toString());
+        } else {
+            bio.setText("");
+        }
+        if (parseUser.get("profession") != null) {
+            profession.setText(parseUser.get("profession").toString());
+        } else {
+            profession.setText("");
+        }
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                parseUser.put("profilename" , name.getText().toString());
+                parseUser.put("bio" , bio.getText().toString());
+                parseUser.put("profession" , profession.getText().toString());
+                parseUser.put("Hobbies",hobbies.getText().toString());
+
+                parseUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null)
+                            FancyToast.makeText(getContext() , "Updated" , Toast.LENGTH_SHORT , FancyToast.SUCCESS , false).show();
+                            else FancyToast.makeText(getContext() ,"Failed"+ e.getMessage() , Toast.LENGTH_SHORT , FancyToast.ERROR , false).show();
+                    }
+                });
+            }
+        });
+
+
+
+
+        return view;
+
+
     }
 }

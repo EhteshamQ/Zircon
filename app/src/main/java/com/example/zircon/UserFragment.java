@@ -7,6 +7,20 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,7 +37,10 @@ public class UserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ListView listView;
+    private ArrayList arrayList;
+    private ArrayAdapter arrayAdapter;
+private TextView load;
     public UserFragment() {
         // Required empty public constructor
     }
@@ -58,7 +75,38 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        arrayList = new ArrayList();
+        arrayAdapter = new ArrayAdapter(getContext() , android.R.layout.simple_list_item_1 , arrayList);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
+        listView = view.findViewById(R.id.ListView);
+        load = view.findViewById(R.id.textAnimate);
+
+        ParseQuery<ParseUser> parseQuery = ParseUser.getQuery();
+
+        parseQuery.whereNotEqualTo("username",ParseUser.getCurrentUser().getUsername());
+                parseQuery.findInBackground(new FindCallback<ParseUser>() {
+                    @Override
+                    public void done(List<ParseUser> objects, ParseException e) {
+                        if(e == null)
+                        {
+                            if(objects.size() > 0)
+                            {
+                                for(ParseUser user : objects)
+                                {
+
+                                    arrayList.add(user.getUsername());
+                                }
+                                listView.setAdapter(arrayAdapter);
+                                load.animate().alpha(0f).setDuration(2000);
+                                listView.setVisibility(View.VISIBLE);
+
+
+                            }
+                        }
+                    }
+                });
+
+        return view;
     }
 }

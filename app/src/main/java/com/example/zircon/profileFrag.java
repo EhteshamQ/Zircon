@@ -86,11 +86,7 @@ public class profileFrag extends Fragment {
         } else {
             name.setText("");
         }
-        if (parseUser.get("Hobbies") != null) {
-            hobbies.setText(parseUser.get("hobbies").toString());
-        } else {
-            hobbies.setText("");
-        }
+
         if (parseUser.get("bio") != null) {
             bio.setText(parseUser.get("bio").toString());
         } else {
@@ -101,7 +97,11 @@ public class profileFrag extends Fragment {
         } else {
             profession.setText("");
         }
-
+        if (parseUser.get("Hobbies") != null) {
+            hobbies.setText(parseUser.get("Hobbies").toString());
+        } else {
+            hobbies.setText("");
+        }
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

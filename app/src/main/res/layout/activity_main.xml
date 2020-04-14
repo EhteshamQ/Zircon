@@ -5,7 +5,7 @@
     android:id="@+id/constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DF8400"
+    android:background="@drawable/back1round"
     android:backgroundTint="#131312"
     android:backgroundTintMode="add"
     android:onClick="click"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/bad_script"
-        android:text="APP _ NAME"
+        android:text="Clonegram"
         android:textColor="#35352D"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,8 +89,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="340dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#7C2424"
         android:onClick="onClick"
         android:padding="8dp"
@@ -98,8 +98,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/signuptxt"
@@ -109,6 +108,7 @@
         android:fontFamily="cursive"
         android:text="Sign Up? Click Me"
         android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
